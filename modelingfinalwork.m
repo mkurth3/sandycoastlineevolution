@@ -2,6 +2,7 @@
 % Marcus & Angela
 % 
 % Evolution of a Sandy Coastline
+% still trying to figure out how to use GitHub right, mlx file is also here for the meantime
 
 % setting parameters
 L = 1000; % length of the domain (m)
