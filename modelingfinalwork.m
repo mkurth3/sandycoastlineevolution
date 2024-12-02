@@ -82,12 +82,71 @@ for i = 1:length(time_steps_to_plot)
 end
 xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Coastline Evolution Over Time'); legend show; grid on;
+%%
+% Figure 3, Error Analysis of Intial vs. Final Coastline Position and Evolution over time
+%
+
+figure(3);
+% Analytical solution function
+function y_analytical = analytical_solution(Nx, t, D, y_initial)
+    % Analytical solution for the 1D diffusion equation
+    % Inputs:
+    % Nx - number of spatial points
+    % t - time
+    % D - diffusion coefficient
+
+    % Ensure t > 0 to avoid division by zero
+    if t == 0
+        y_analytical = y_initial(Nx); % At t = 0, solution is the initial condition
+        return;
+    end
+
+    % Analytical solution: Gaussian initial condition
+    y_analytical = zeros(size(Nx));
+    for i = 1:length(Nx)
+        % integrate using numerical approximation (trapz)
+        Nx_prime = linspace(min(Nx), max(Nx), 1000); % discretize x' for integration
+        gauss = exp(-(Nx(i) - Nx_prime).^2 / (4 * D * t)) / sqrt(4 * pi * D * t);
+        y_analytical(i) = trapz(Nx_prime, gauss .* y_initial(Nx_prime));
+    end
+end
+
+% Reset numerical solution
+y = zeros(Nx, 1);
+y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
+
+% Numerical solution for final time
+for n = 1:Nt
+    y_new = y;
+    for i = 2:Nx-1
+        y_new(i) = y(i) + D * dt / dx^2 * (y(i+1) - 2*y(i) + y(i-1));
+    end
+    y = y_new;
+end
+
+% Analytical solution
+t = T; % final time
+y_initial = @(x) (x <= L/2) .* (200 * x / L) + (x > L/2) .* (200 * (L - x) / L);
+analytical_y = analytical_solution(x, t, D, y_initial);
+
+% Error calculation
+error = abs(y - analytical_y);
+
+% Plot numerical vs analytical solution and error
+plot(x, analytical_y, 'b-', 'LineWidth', 1.6, 'DisplayName', 'Analytical Solution');
+hold on;
+plot(x, y, 'r--', 'LineWidth', 1.6, 'DisplayName', 'Numerical Solution');
+plot(x, error, 'k-', 'LineWidth', 1.6, 'DisplayName', 'Error');
+xlabel('Distance alongshore (m)');
+ylabel('Coastline position (m)');
+title('Numerical vs Analytical Solution and Error');
+legend({'Analytical Solution', 'Numerical Solution', 'Error'}, 'Location', 'best');
 %% 
-% Figure 3, Effect of Diffusivity on Final Coastline
+% Figure 4, Effect of Diffusivity on Final Coastline
 % 
 % same methods
 
-figure(3);
+figure(4);
 D_values = [0.5, 1, 2]; % different diffusivities
 hold on;
 for D_test = D_values
