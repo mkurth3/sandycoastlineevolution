@@ -1,8 +1,21 @@
 %% Final Modeling Project Draft Notebook
 % Marcus & Angela
-% 
+ 
 % Evolution of a Sandy Coastline
-% still trying to figure out how to use GitHub right, mlx file is also here for the meantime
+%~~~~~~~~~~ Introduction ~~~~~~~~~~%
+
+% We are modeling the evolution of a sandy coastline, which is important to
+% study due to the current global rising sea level that leaves coastlines
+% vulnerable to further erosion and flooding. Currently, according to Pham 
+% Nam, there are 6 numerical modeling methods to study coastline evolution:
+% (1) conceptual models, (2) shoreline evolution models, (3) profile 
+% evolution models, (4) 2D horizontal morphological evolution models, 
+% (5) quasi-3D morphological models, and (6) fully 3D morphological models.
+% Here we use a combination of 2D and profile shoreline evolution models. 
+
+%~~~~~~~~~~ Equations ~~~~~~~~~~%
+
+
 
 % setting parameters
 L = 1000; % length of the domain (m)
@@ -93,3 +106,10 @@ xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
 %% 
 % We need to figure out two more figures to do
+
+%~~~~~~~~~~ References ~~~~~~~~~~%
+
+% Nam, P. T., Larson, M., Hanson, H., & Hoan, L. X. (2011). 
+% A numerical model of beach morphological evolution due to waves and 
+% currents in the vicinity of coastal structures. Coastal Engineering, 
+% 58(9), 863–876. https://doi.org/10.1016/j.coastaleng.2011.05.006 
