@@ -104,7 +104,7 @@ function y_analytical = analytical_solution(Nx, t, D, y_initial)
     % Analytical solution: Gaussian initial condition
     y_analytical = zeros(size(Nx));
     for i = 1:length(Nx)
-        % integrate using numerical approximation (trapz)
+        % integrate using numerical approximation (trapz = trapezoid)
         Nx_prime = linspace(min(Nx), max(Nx), 1000); % discretize x' for integration
         gauss = exp(-(Nx(i) - Nx_prime).^2 / (4 * D * t)) / sqrt(4 * pi * D * t);
         y_analytical(i) = trapz(Nx_prime, gauss .* y_initial(Nx_prime));
@@ -130,13 +130,14 @@ y_initial = @(x) (x <= L/2) .* (200 * x / L) + (x > L/2) .* (200 * (L - x) / L);
 analytical_y = analytical_solution(x, t, D, y_initial);
 
 % Error calculation
-error = abs(y - analytical_y);
+absolute_error = abs(y - analytical_y);
+relative_error = absolute_error/analytical_y;
 
 % Plot numerical vs analytical solution and error
 plot(x, analytical_y, 'b-', 'LineWidth', 1.6, 'DisplayName', 'Analytical Solution');
 hold on;
 plot(x, y, 'r--', 'LineWidth', 1.6, 'DisplayName', 'Numerical Solution');
-plot(x, error, 'k-', 'LineWidth', 1.6, 'DisplayName', 'Error');
+plot(x, relative_error, 'k-', 'LineWidth', 1.6, 'DisplayName', 'Error');
 xlabel('Distance alongshore (m)');
 ylabel('Coastline position (m)');
 title('Numerical vs Analytical Solution and Error');
