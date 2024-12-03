@@ -15,7 +15,8 @@
 
 %~~~~~~~~~~ Equations ~~~~~~~~~~%
 
-
+% 1-D diffusion PDE: dy/dt - D*d^2y/dx^2 = 0 
+% where "d" = partial derivative and units are m/s
 
 % setting parameters
 L = 1000; % length of the domain (m)
@@ -164,8 +165,6 @@ for D_test = D_values
 end
 xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
-%% 
-% We need to figure out two more figures to do
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
