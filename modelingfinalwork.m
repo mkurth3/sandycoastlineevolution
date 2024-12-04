@@ -21,6 +21,12 @@
 % y is the height of the coastline, x is the distance along the shore, 
 % and t is time while D is diffusivity
 
+%~~~~~~~~~~ Method ~~~~~~~~~~%
+
+% Finite difference methods are used with partial differential equations (PDEs) 
+% to discretize derivatives, replacing them with finite differences that can 
+% be evaluated at grid points in space and time
+
 %~~~~~~~~~~ Code ~~~~~~~~~~%
 
 % setting parameters
@@ -244,6 +250,10 @@ end
 % A numerical model of beach morphological evolution due to waves and 
 % currents in the vicinity of coastal structures. Coastal Engineering, 
 % 58(9), 863–876. https://doi.org/10.1016/j.coastaleng.2011.05.006 
+
+% Partial differential equation and finite difference. 
+% Scientific Machine Learning (SciML). (n.d.). 
+% https://kks32-courses.github.io/sciml/lectures/04-pde-fdm/04-pde-fdm.html 
 
 % Slingerland, R., & Kump, L. R. (2011).
 % Mathematical modeling of Earth’s dynamical systems: A Primer. 
