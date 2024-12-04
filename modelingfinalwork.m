@@ -174,32 +174,43 @@ xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
 
 % Figures 5-7, Varying Diffusivites Along Distance
-% same methods used just incorporating different patterns of variation
+% Using the same method just incorporating different patterns of variation in diffusivity along the profile.
+% 3 different patterns: sinusoidal (following a sin wave) , half-zero (half of profile is 0 diffusivity and other half is 1),
+% and linear gradient (diffusivity is 0 at starting x and increases linearly along profile)
+% Our goal here is to see how differing diffusivity patterns affects the coastline evolution.
 
-% Define diffusivity variations
+% define diffusivity variations
 diffusivity_patterns = {
     1 + 0.5 * sin(2*pi*x/L), ... % sinusoidal variation
-    [ones(1, Nx/2), 2*ones(1, Nx/2)], ... % step change
+    [zeros(1, Nx/2), ones(1, Nx/2)], ... % half-zero diffusivity
     linspace(1, 2, Nx) ... % linear gradient
 };
+titles = {'Sinusoidal Diffusivity', 'Half-Zero Diffusivity', 'Linear Gradient Diffusivity'};
 
-titles = {'Sinusoidal Diffusivity', 'Step Change Diffusivity', 'Linear Gradient Diffusivity'};
 % loop through each diffusivity pattern
 for pattern_idx = 1:length(diffusivity_patterns)
     D = diffusivity_patterns{pattern_idx};
+    
+    % initial condition
     y = zeros(Nx, 1);
     y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
-    % time step loop
+    
+    % time-stepping loop
     y_history = zeros(Nx, Nt/100 + 1); % store results for plotting
     history_idx = 1; % time history storage index
     for n = 1:Nt
         y_new = y;
         for i = 2:Nx-1
-            % incorporate the varying diffusivity
-            D_i_plus_half = (D(i)+D(i+1))/2; % average diffusivity between i and i+1
-            D_i_minus_half = (D(i)+D(i-1))/2; % average diffusivity between i and i-1
-            y_new(i) = y(i)+dt/dx^2 * ...
-                (D_i_plus_half*(y(i+1)-y(i))-D_i_minus_half*(y(i)-y(i-1)));
+            % incorporate varying diffusivity
+            D_i_plus_half = (D(i) + D(i+1)) / 2; % average diffusivity between i and i+1
+            D_i_minus_half = (D(i) + D(i-1)) / 2; % average diffusivity between i and i-1
+            % handling zero diffusivity 
+            if D(i) > 0
+                y_new(i) = y(i) + dt/dx^2 * ...
+                    (D_i_plus_half*(y(i+1)-y(i))-D_i_minus_half*(y(i)-y(i-1)));
+            else
+                y_new(i) = y(i); % no evolution for zero diffusivity
+            end
         end
         y = y_new;
         % save results every 100 time steps
@@ -208,14 +219,21 @@ for pattern_idx = 1:length(diffusivity_patterns)
             history_idx = history_idx+1;
         end
     end
-    % plot results for each diffusivity pattern
+    % plot diffusivity graph and shoreline evolution
     figure;
+    % subplot 1: Diffusivity
+    subplot(1, 2, 1);
+    plot(x, D, 'b-', 'LineWidth', 1.6);
+    xlabel('Distance alongshore (m)'); ylabel('Diffusivity (m^2/s)');
+    title(['Diffusivity: ', titles{pattern_idx}]); grid on;
+    % subplot 2: Shoreline evolution
+    subplot(1, 2, 2);
     hold on;
     for t_idx = 1:size(y_history, 2)
         plot(x, y_history(:, t_idx), 'DisplayName', sprintf('t = %.1f s', (t_idx-1)*100*dt));
     end
-    xlabel('Distance alongshore (m)'); ylabel('Shoreline position (m)');
-    title(titles{pattern_idx}); legend show; grid on;
+    xlabel('Distance alongshore (m)');ylabel('Shoreline position (m)');
+    title('Shoreline Evolution'); legend show; grid on;
 end
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
