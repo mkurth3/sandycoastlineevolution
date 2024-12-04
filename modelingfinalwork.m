@@ -21,7 +21,7 @@
 % y is the height of the coastline, x is the distance along the shore, 
 % and t is time while D is diffusivity
 
-%~~~~~~~~~~ CODE ~~~~~~~~~~%
+%~~~~~~~~~~ Code ~~~~~~~~~~%
 
 % setting parameters
 L = 1000; % length of the domain (m)
@@ -136,8 +136,10 @@ y_initial = @(x) (x <= L/2) .* (200 * x / L) + (x > L/2) .* (200 * (L - x) / L);
 analytical_y = analytical_solution(x, t, D, y_initial);
 
 % Error calculation
-absolute_error = abs(y - analytical_y);
+absolute_error = mean(abs(y - analytical_y));
 relative_error = absolute_error/analytical_y;
+percent_error = 100 * max(relative_error);
+sprintf('The percent of the measurements that are questionable is: %f%%', percent_error)
 
 % Plot numerical vs analytical solution and error
 plot(x, analytical_y, 'b-', 'LineWidth', 1.6, 'DisplayName', 'Analytical Solution');
