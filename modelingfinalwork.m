@@ -190,6 +190,8 @@ end
 
 %~~~~~Final Results/Model Analysis and Model Limitations/Improvements ~~~~~~%
 
+PUT RESULTS COMPARISON AND ANALYSIS HERE
+
 % Numerical Methods Improvements:
 % 1. The use of the Finite Difference Method worked but there's probably a better choice if we wanted to run this on longer timescales
 %    Using an implicit or Crank-Nicolson method would improve stability, allowing for larger time steps without sacrificing accuracy. 
