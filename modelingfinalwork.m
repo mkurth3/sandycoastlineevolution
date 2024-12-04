@@ -190,7 +190,21 @@ end
 
 %~~~~~Final Results/Model Analysis and Model Limitations/Improvements ~~~~~~%
 
-% PUT RESULTS COMPARISON AND ANALYSIS HERE
+% How do the results compare with any known solutions, or data?
+% Almarshed illustrates that vertical initial sandy shorelines diffuse
+% downward and outward (to the right) over time, this can be compared
+% to our figure 1 of the initial and final sandy shorelines doing the same. 
+
+% How do the results change with different methods, time steps, grid spacing, or model parameters?
+% changing the simulation time (T = 10000 seconds ~ 3 hours) to be longer does not significantly 
+% change our results as over time the diffusivity will eventually flatten out the shoreline. 
+% However, if we included accumulation of sand from the waves, we would see a difference as the 
+% shoreline would not go to y = 0 but to a small height. 
+
+% What did the model tell you about the process you were studying?
+% Diffusivity is a major factor in shoreline evolution. Diffusivity controls the flux of sand 
+% downslope on hillslopes, which this hillslope is a sandy shore. Thus, modeling the effect of
+% diffusivity allowed us to understand the evolution of the shore over time. 
 
 % Numerical Methods Improvements:
 % 1. The use of the Finite Difference Method worked but there's probably a better choice if we wanted to run this on longer timescales
