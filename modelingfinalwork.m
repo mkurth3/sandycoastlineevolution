@@ -190,7 +190,14 @@ end
 
 %~~~~~Final Results/Model Analysis and Model Limitations/Improvements ~~~~~~%
 
+% Numerical Methods Improvements:
+% 1. The use of the Finite Difference Method worked but there's probably a better choice if we wanted to run this on longer timescales
+%    Using an implicit or Crank-Nicolson method would improve stability, allowing for larger time steps without sacrificing accuracy. 
+% 2. Using higher-order methods could reduce numerical errors and better capture steep gradients in the shoreline position.
 
+% Physical Processes Improvements:
+% More physical processes could be included to make this model more accurate to real-life conditions.
+% This could include incorporating wave dynamics, grain-size dependent diffusivity, and erosional events such as storms.
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
