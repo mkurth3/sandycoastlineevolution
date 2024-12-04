@@ -94,74 +94,12 @@ for i = 1:length(time_steps_to_plot)
 end
 xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Coastline Evolution Over Time'); legend show; grid on;
-%%
-% Figure 3, Error Analysis of Intial vs. Final Coastline Position and Evolution over time
-%
+
+% Figure 3, Effect of Diffusivity on Final Coastline
+% Using the same method (Finite Difference) we run the previous model but with varying constant diffusivities.
+% Here we compare the final coastline profiles against each other.
 
 figure(3);
-% Analytical solution function
-function y_analytical = analytical_solution(Nx, t, D, y_initial)
-    % Analytical solution for the 1D diffusion equation
-    % Inputs:
-    % Nx - number of spatial points
-    % t - time
-    % D - diffusion coefficient
-
-    % Ensure t > 0 to avoid division by zero
-    if t == 0
-        y_analytical = y_initial(Nx); % At t = 0, solution is the initial condition
-        return;
-    end
-
-    % Analytical solution: Gaussian initial condition
-    y_analytical = zeros(size(Nx));
-    for i = 1:length(Nx)
-        % integrate using numerical approximation (trapz = trapezoid)
-        Nx_prime = linspace(min(Nx), max(Nx), 1000); % discretize x' for integration
-        gauss = exp(-(Nx(i) - Nx_prime).^2 / (4 * D * t)) / sqrt(4 * pi * D * t);
-        y_analytical(i) = trapz(Nx_prime, gauss .* y_initial(Nx_prime));
-    end
-end
-
-% Reset numerical solution
-y = zeros(Nx, 1);
-y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
-
-% Numerical solution for final time
-for n = 1:Nt
-    y_new = y;
-    for i = 2:Nx-1
-        y_new(i) = y(i) + D * dt / dx^2 * (y(i+1) - 2*y(i) + y(i-1));
-    end
-    y = y_new;
-end
-
-% Analytical solution
-t = T; % final time
-y_initial = @(x) (x <= L/2) .* (200 * x / L) + (x > L/2) .* (200 * (L - x) / L);
-analytical_y = analytical_solution(x, t, D, y_initial);
-
-% Error calculation
-absolute_error = mean(abs(y - analytical_y));
-relative_error = absolute_error/analytical_y;
-percent_error = 100 * max(relative_error);
-sprintf('The percent of the measurements that are questionable is: %f%%', percent_error)
-
-% Plot numerical vs analytical solution and error
-plot(x, analytical_y, 'b-', 'LineWidth', 1.6, 'DisplayName', 'Analytical Solution');
-hold on;
-plot(x, y, 'r--', 'LineWidth', 1.6, 'DisplayName', 'Numerical Solution');
-plot(x, relative_error, 'k-', 'LineWidth', 1.6, 'DisplayName', 'Error');
-xlabel('Distance alongshore (m)');
-ylabel('Coastline position (m)');
-title('Numerical vs Analytical Solution and Error');
-legend({'Analytical Solution', 'Numerical Solution', 'Error'}, 'Location', 'best');
-%% 
-% Figure 4, Effect of Diffusivity on Final Coastline
-% 
-% same methods
-
-figure(4);
 D_values = [0.5, 1, 2]; % different diffusivities
 hold on;
 for D_test = D_values
@@ -179,7 +117,11 @@ end
 xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
 
-% Figures 5-7, Varying Diffusivites Along Distance
+% As expected, these results show that the higher the diffusivity, the lower/more flat the final coastline profile will be.
+% This is due to a higher diffusivity allowing further spreading of materials (sand) most likely due to erosion.
+% Higher diffusivity in the example of a sandy coastline is most likely due to stronger waves, smaller sand grain size, or coastal geometry.
+
+% Figures 4-6, Varying Diffusivites Along Distance
 % Using the same method just incorporating different patterns of variation in diffusivity along the profile.
 % 3 different patterns: sinusoidal (following a sin wave) , half-zero (half of profile is 0 diffusivity and other half is 1),
 % and linear gradient (diffusivity is 0 at starting x and increases linearly along profile)
@@ -244,7 +186,7 @@ end
 
 % These results show that the varying diffusivity patterns do severely effect the coastline evolution.
 % This is most likely more representative of real life since many factors not included in the model can alter diffusivity along a profile.
-% This could be the presence of vegetation, material that is being diffused, water patterns, etc.
+% This could be the presence of vegetation, size and angularity of material that is being diffused, water patterns, etc.
 
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
