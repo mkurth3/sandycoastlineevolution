@@ -242,7 +242,10 @@ for pattern_idx = 1:length(diffusivity_patterns)
     title('Shoreline Evolution'); legend show; grid on;
 end
 
-% These results show...
+% These results show that the varying diffusivity patterns do severely effect the coastline evolution.
+% This is most likely more representative of real life since many factors not included in the model can alter diffusivity along a profile.
+% This could be the presence of vegetation, material that is being diffused, water patterns, etc.
+
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
