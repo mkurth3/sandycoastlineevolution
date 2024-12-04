@@ -34,7 +34,7 @@ y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
 %% 
 % Figure 1 & 2, Intial vs. Final Coastline Position and Evolution over time
 % 
-% Finite Difference Method (do we need more than one method? how many?)
+% Finite Difference Method
 
 % Initial vs Final Coastline
 figure(1);
