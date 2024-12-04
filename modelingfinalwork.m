@@ -45,7 +45,7 @@ y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
 
 % Figure 1 & 2, Intial vs. Final Coastline Position and Coastline Evolution over time
 % Finite Difference Method
-% We chose the Finite Different Method because...
+% We chose the Finite Different Method because we wanted to discritize the derivatives in the diffusion equation with finite difference approximations
 
 % Initial vs Final Coastline
 figure(1);
