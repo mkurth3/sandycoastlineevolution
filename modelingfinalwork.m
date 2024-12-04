@@ -190,7 +190,7 @@ end
 
 %~~~~~Final Results/Model Analysis and Model Limitations/Improvements ~~~~~~%
 
-PUT RESULTS COMPARISON AND ANALYSIS HERE
+% PUT RESULTS COMPARISON AND ANALYSIS HERE
 
 % Numerical Methods Improvements:
 % 1. The use of the Finite Difference Method worked but there's probably a better choice if we wanted to run this on longer timescales
