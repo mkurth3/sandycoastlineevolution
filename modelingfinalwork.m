@@ -166,6 +166,51 @@ end
 xlabel('Distance alongshore (m)'); ylabel('Coastline position (m)');
 title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
 
+% Figures 5-7, Varying Diffusivites Along Distance
+% same methods used just incorporating different patterns of variation
+
+% Define diffusivity variations
+diffusivity_patterns = {
+    1 + 0.5 * sin(2*pi*x/L), ... % sinusoidal variation
+    [ones(1, Nx/2), 2*ones(1, Nx/2)], ... % step change
+    linspace(1, 2, Nx) ... % linear gradient
+};
+
+titles = {'Sinusoidal Diffusivity', 'Step Change Diffusivity', 'Linear Gradient Diffusivity'};
+% loop through each diffusivity pattern
+for pattern_idx = 1:length(diffusivity_patterns)
+    D = diffusivity_patterns{pattern_idx};
+    y = zeros(Nx, 1);
+    y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
+    % time step loop
+    y_history = zeros(Nx, Nt/100 + 1); % store results for plotting
+    history_idx = 1; % time history storage index
+    for n = 1:Nt
+        y_new = y;
+        for i = 2:Nx-1
+            % incorporate the varying diffusivity
+            D_i_plus_half = (D(i)+D(i+1))/2; % average diffusivity between i and i+1
+            D_i_minus_half = (D(i)+D(i-1))/2; % average diffusivity between i and i-1
+            y_new(i) = y(i)+dt/dx^2 * ...
+                (D_i_plus_half*(y(i+1)-y(i))-D_i_minus_half*(y(i)-y(i-1)));
+        end
+        y = y_new;
+        % save results every 100 time steps
+        if mod(n, 100) == 0
+            y_history(:, history_idx) = y;
+            history_idx = history_idx+1;
+        end
+    end
+    % plot results for each diffusivity pattern
+    figure;
+    hold on;
+    for t_idx = 1:size(y_history, 2)
+        plot(x, y_history(:, t_idx), 'DisplayName', sprintf('t = %.1f s', (t_idx-1)*100*dt));
+    end
+    xlabel('Distance alongshore (m)'); ylabel('Shoreline position (m)');
+    title(titles{pattern_idx}); legend show; grid on;
+end
+
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
 % Nam, P. T., Larson, M., Hanson, H., & Hoan, L. X. (2011). 
