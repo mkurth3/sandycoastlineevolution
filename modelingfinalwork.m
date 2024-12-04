@@ -217,3 +217,7 @@ end
 % A numerical model of beach morphological evolution due to waves and 
 % currents in the vicinity of coastal structures. Coastal Engineering, 
 % 58(9), 863–876. https://doi.org/10.1016/j.coastaleng.2011.05.006 
+
+% Slingerland, R., & Kump, L. R. (2011).
+% Mathematical modeling of Earth’s dynamical systems: A Primer. 
+% Princeton University Press. 
