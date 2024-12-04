@@ -36,10 +36,10 @@ dt = T/Nt; % time step size
 x = linspace(0, L, Nx);
 y = zeros(Nx, 1);
 y(1:Nx/2) = linspace(0, 100, Nx/2); % linear initial condition
-%% 
-% Figure 1 & 2, Intial vs. Final Coastline Position and Evolution over time
-% 
+
+% Figure 1 & 2, Intial vs. Final Coastline Position and Coastline Evolution over time
 % Finite Difference Method
+% We chose the Finite Different Method because...
 
 % Initial vs Final Coastline
 figure(1);
