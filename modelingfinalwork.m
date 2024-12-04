@@ -236,6 +236,8 @@ for pattern_idx = 1:length(diffusivity_patterns)
     title('Shoreline Evolution'); legend show; grid on;
 end
 
+% These results show...
+
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
 % Nam, P. T., Larson, M., Hanson, H., & Hoan, L. X. (2011). 
