@@ -188,6 +188,8 @@ end
 % This is most likely more representative of real life since many factors not included in the model can alter diffusivity along a profile.
 % This could be the presence of vegetation, size and angularity of material that is being diffused, water patterns, etc.
 
+%~~~~~Limitations and Possible Improvements of Model~~~~~~%
+
 
 %~~~~~~~~~~ References ~~~~~~~~~~%
 
