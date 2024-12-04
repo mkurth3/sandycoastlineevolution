@@ -16,7 +16,12 @@
 %~~~~~~~~~~ Equations ~~~~~~~~~~%
 
 % 1-D diffusion PDE: dy/dt - D*d^2y/dx^2 = 0 
+% dy/dt = D*d^2y/dx^2
 % where "d" = partial derivative and units are m/s
+% y is the height of the coastline, x is the distance along the shore, 
+% and t is time while D is diffusivity
+
+%~~~~~~~~~~ CODE ~~~~~~~~~~%
 
 % setting parameters
 L = 1000; % length of the domain (m)
