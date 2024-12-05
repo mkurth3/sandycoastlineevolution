@@ -124,7 +124,7 @@ title('Effect of Diffusivity on Final Coastline'); legend show; grid on;
 % Figures 4-6, Varying Diffusivites Along Distance
 % Using the same method just incorporating different patterns of variation in diffusivity along the profile.
 % 3 different patterns: sinusoidal (following a sin wave) , half-zero (half of profile is 0 diffusivity and other half is 1),
-% and linear gradient (diffusivity is 0 at starting x and increases linearly along profile)
+% and linear gradient (diffusivity is 1 at starting x and increases linearly  to 2 along profile)
 % Our goal here is to see how differing diffusivity patterns affects the coastline evolution.
 
 % define diffusivity variations
